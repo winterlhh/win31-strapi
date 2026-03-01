@@ -73,7 +73,7 @@ spec:
           PORT:
             default: "1337"
           NODE_ENV:
-            default: production
+            default: development
           DATABASE_CLIENT:
             default: postgres
           DATABASE_URL:
