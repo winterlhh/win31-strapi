@@ -1,0 +1,89 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Strapi CMS
+spec:
+  description: >-
+    Strapi CMS with PostgreSQL, pre-configured for one-click deployment on Zeabur.
+  icon: https://strapi.io/assets/favicon-32x32.png
+  coverImage: ""
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: CMS Domain
+      description: "Your Strapi CMS domain (e.g. enter my-cms, the domain will be my-cms.zeabur.app)"
+  tags:
+    - CMS
+  readme: |-
+    # Strapi CMS
+    One-click deploy Strapi CMS with PostgreSQL on Zeabur.
+    After deployment, open your domain to access the Strapi Admin panel and create an admin account.
+  services:
+    - name: PostgreSQL
+      icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg
+      template: PREBUILT
+      spec:
+        source:
+          image: postgres:16
+        ports:
+          - id: database
+            port: 5432
+            type: TCP
+        volumes:
+          - id: data
+            dir: /var/lib/postgresql/data
+        env:
+          POSTGRES_USER:
+            default: strapi
+            expose: true
+          POSTGRES_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          POSTGRES_DB:
+            default: strapi
+            expose: true
+          POSTGRES_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+          POSTGRES_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+
+    - name: Strapi
+      icon: https://strapi.io/assets/favicon-32x32.png
+      template: GIT
+      domainKey: PUBLIC_DOMAIN
+      dependencies:
+        - PostgreSQL
+      spec:
+        source:
+          type: GITHUB
+          repoID: 1139769997
+          branch: master
+        ports:
+          - id: web
+            port: 1337
+            type: HTTP
+        env:
+          HOST:
+            default: "0.0.0.0"
+          PORT:
+            default: "1337"
+          NODE_ENV:
+            default: production
+          DATABASE_CLIENT:
+            default: postgres
+          DATABASE_URL:
+            default: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
+          APP_KEYS:
+            default: ${PASSWORD},${PASSWORD},${PASSWORD},${PASSWORD}
+          API_TOKEN_SALT:
+            default: ${PASSWORD}
+          ADMIN_JWT_SECRET:
+            default: ${PASSWORD}
+          TRANSFER_TOKEN_SALT:
+            default: ${PASSWORD}
+          JWT_SECRET:
+            default: ${PASSWORD}
+          ENCRYPTION_KEY:
+            default: ${PASSWORD}
