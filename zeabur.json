@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.zeabur.app/template.json",
   "build_command": "npm run build",
-  "start_command": "npm run start",
+  "start_command": "npm run develop",
   "output_dir": "."
 }
