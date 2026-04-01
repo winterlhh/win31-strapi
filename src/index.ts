@@ -67,7 +67,11 @@ export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    await setPublicPermissions(strapi);
-    await seedDefaultData(strapi);
+    try {
+      await setPublicPermissions(strapi);
+      await seedDefaultData(strapi);
+    } catch (err) {
+      strapi.log.error('Bootstrap seed failed (non-fatal):', err);
+    }
   },
 };

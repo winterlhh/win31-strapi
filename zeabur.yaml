@@ -62,13 +62,13 @@ spec:
           branch: master
         ports:
           - id: web
-            port: 1337
+            port: 8080
             type: HTTP
         env:
           HOST:
             default: "0.0.0.0"
           PORT:
-            default: "1337"
+            default: "8080"
           NODE_ENV:
             default: production
           DATABASE_CLIENT:
