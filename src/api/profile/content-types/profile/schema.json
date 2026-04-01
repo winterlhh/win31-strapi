@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "profile",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile",
+    "description": "Personal profile shown on the frontend"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "bio": {
+      "type": "text"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "avatarAlt": {
+      "type": "string"
+    },
+    "backgroundSrc": {
+      "type": "string"
+    },
+    "backgroundAlt": {
+      "type": "string"
+    },
+    "likeLabel": {
+      "type": "string",
+      "default": "Like"
+    },
+    "likeCount": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    }
+  }
+}
