@@ -13,6 +13,4 @@ WORKDIR /app
 COPY --from=build /app .
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-CMD ["/app/start.sh"]
+CMD ["node", "-e", "const p=process.env.PORT||8080;require('http').createServer((q,r)=>{r.writeHead(200);r.end('ok')}).listen(p,()=>console.log('listening on '+p))"]
