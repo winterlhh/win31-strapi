@@ -13,4 +13,4 @@ WORKDIR /app
 COPY --from=build /app .
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-CMD ["node", "-e", "const p=process.env.PORT||8080;require('http').createServer((q,r)=>{r.writeHead(200);r.end('ok')}).listen(p,()=>console.log('listening on '+p))"]
+CMD ["npm", "run", "start"]
