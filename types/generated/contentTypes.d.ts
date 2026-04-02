@@ -483,7 +483,7 @@ export interface ApiProfileProfile extends Struct.SingleTypeSchema {
     singularName: 'profile';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     avatar: Schema.Attribute.Media<'images'>;
